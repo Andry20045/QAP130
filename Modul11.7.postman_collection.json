@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "b2132676-577e-44c8-befc-11f7c02b156a",
+		"name": "Modul11.7",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26941130"
+	},
+	"item": [
+		{
+			"name": "GetApiKey",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});pm.test(\"Если в ответе есть ключ key, то записать его значение в auth_key\", function () {\r",
+							"        var jsonData = JSON.parse(responseBody);\r",
+							"        pm.expect(jsonData).to.have.all.keys('key');\r",
+							"        pm.collectionVariables.set(\"auth_key\", jsonData.key);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "andreisuchanov2004@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Panasonic2004",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{PetFriend}}api/key",
+					"host": [
+						"{{PetFriend}}api"
+					],
+					"path": [
+						"key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.collectionVariables.set(\"petid\", jsonData.id);\r",
+							"});\r",
+							"   let jsonData = JSON.parse(responseBody);\r",
+							"   pm.collectionVariables.set(\"name\", jsonData. name)\r",
+							"   "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "email",
+						"value": "andreisuchanov2004@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Panasonic2004",
+						"type": "text"
+					},
+					{
+						"key": "name",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "age_pet",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "proshka",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "popugai",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{PetFriend}}api/create_pet_simple",
+					"host": [
+						"{{PetFriend}}api"
+					],
+					"path": [
+						"create_pet_simple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});pm.test(\"new name\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.expect(pm.collectionVariables.get(\"name\")).to. not.eql(jsonData. name);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "email",
+						"value": "andreisuchanov2004@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Panasonic2004",
+						"type": "text"
+					},
+					{
+						"key": "name",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "age_pet",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "proshecka",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "popugai",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{PetFriend}}api/pets/:pet_id",
+					"host": [
+						"{{PetFriend}}api"
+					],
+					"path": [
+						"pets",
+						":pet_id"
+					],
+					"variable": [
+						{
+							"key": "pet_id",
+							"value": "e4d4a1fb-4613-4693-be50-a159a7791fca"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPetList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});pm.test(\"\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.expect(pm.collectionVariables.get(\"name\")).to.eql(jsonData.pets[0].name);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "andreisuchanov2004@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Panasonic2004",
+						"type": "text"
+					},
+					{
+						"key": "name",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "age_pet",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "proshka",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "popugai",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{PetFriend}}api/pets?filter=my_pets",
+					"host": [
+						"{{PetFriend}}api"
+					],
+					"path": [
+						"pets"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "my_pets"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "1ebb655e757b18191873d7e93a2798f84d8e161452d8a73c3f75c83f",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "auth_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PetFriend",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "age_pet",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "petid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
